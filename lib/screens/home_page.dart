@@ -14,6 +14,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
      body: SafeArea(
        child: Row(
+         crossAxisAlignment: CrossAxisAlignment.start,
          children: const [
             Expanded(
              child: SideMenu()

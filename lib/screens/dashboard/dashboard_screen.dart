@@ -1,74 +1,143 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iaminworld/constants.dart';
+import 'components/chart.dart';
+import 'components/header.dart';
 
 class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({ Key? key }) : super(key: key);
+  const DashboardScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(defaultPadding),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Text('DashBoard',
-                style: Theme.of(context).textTheme.headline6,
-                ),
-                const Spacer(),
-                 const Expanded(
-                  child: SearchField()),
-                  Row(
-                    children: [
-                    Image.asset('assets/images/VinayMundhra.png'),
-                    const Padding(padding: EdgeInsets.symmetric(
-                      horizontal: defaultPadding/2),
-
-                      child: Text('Vinay'),
-                    )
-                  ],
-                  )
-              ],
-            )
-          ],
-        ),
-      ),
-    );
+        child: SingleChildScrollView(
+            padding: const EdgeInsets.all(defaultPadding),
+            child: Column(children: [
+              const Header(),
+              const SizedBox(height: defaultPadding),
+              Row(
+                children: [
+                  Expanded(
+                      flex: 5,
+                      child: Container(
+                        height: 500,
+                        color: Colors.white,
+                      )),
+                  const SizedBox(width: defaultPadding),
+                  Expanded(
+                      flex: 2,
+                      child: Container(
+                          height: 500,
+                          decoration: BoxDecoration(
+                              color: secondaryColor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            children: const [
+                               Text('Storage Details',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500)),
+                                 SizedBox(height: defaultPadding,),
+                                 Chart(),
+                                 StorageInfoCard(
+                                   amountofFiles: '1.3 GB',
+                                    numOffiles: 1329 ,
+                                     svgSrc: 'assets/icons/Documents.svg',
+                                     title: 'Document Files',
+                                     )
+                            ],
+                          )
+                          )
+                          )
+                ],
+              ),
+            ])));
   }
 }
 
-class SearchField extends StatelessWidget {
-  const SearchField({
+class StorageInfoCard extends StatelessWidget {
+  const StorageInfoCard({
     Key? key,
+    required this.title,
+    required this.svgSrc,
+    required this.amountofFiles,
+    required this.numOffiles,
   }) : super(key: key);
+
+ final String title, svgSrc, amountofFiles;
+ final int numOffiles;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        fillColor: secondaryColor,
-        filled: true,
-        border: const OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.all(Radius.circular(10))
-        ),
-        suffixIcon: InkWell(
-          onTap: (){},
-          child: Container(
-            padding: const EdgeInsets.all(defaultPadding * 0.75),
-            margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: primaryColor
+    return Container(
+      padding: const EdgeInsets.all(defaultPadding),
+      decoration: BoxDecoration(
+        border: Border.all(
+            width: 2,
+            color: primaryColor.withOpacity(0.15)),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(defaultPadding),
+            )
             ),
-            child: SvgPicture.asset('assets/icons/Search.svg'),
-          ),
-        )
-      ),
-    );
+            child: Row(
+              children: [
+                 SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: SvgPicture.asset(svgSrc),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                         Text(
+                          title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          '$numOffiles files',
+                        style: Theme.of(context)
+                        .textTheme
+                        .caption!
+                        .copyWith(color: Colors.white70),)
+                      ],
+                    ),
+                  )
+                  ),
+                  Text(amountofFiles)
+              ],
+            ),
+                              );
   }
 }
+// class Belowchart extends StatelessWidget {
+//   const Belowchart({
+//     Key? key,
+//     required this.title,
+//     required this.icon,
+//     required this.press,
+//   }) : super(key: key);
+
+//  final String title, icon;
+//  final VoidCallback press;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return ListTile(
+//       onTap: press,
+//       horizontalTitleGap: 0.0,
+//        leading: SvgPicture.asset(
+//          icon,
+//        color: Colors.white),
+//       title: Text(
+//         title,
+//         style: const TextStyle(color: Colors.white54)
+//       ),
+//     );
+//   }
+// }
+
