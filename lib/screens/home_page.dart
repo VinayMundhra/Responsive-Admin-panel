@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'components/side_menu.dart';
+import 'dashboard/dashboard_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,23 +14,13 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
      body: SafeArea(
        child: Row(
-         children: [
-           Expanded(
-             child: Column(
-               children: const [
-                 DrawerHeader(child: 
-                 Text('')),
-                 ListTile(leading: Text(''),
-                   title: Text('Dashboard'),
-                 )
-               ]
-               )
+         children: const [
+            Expanded(
+             child: SideMenu()
                ),
                 Expanded(
                   flex: 5,
-             child: Container(
-               color: Colors.blue ,
-               )
+             child: DashboardScreen()
                ),
          ],
        ),
@@ -37,3 +28,4 @@ class _HomePageState extends State<HomePage> {
     );
     }
 }
+
