@@ -1,7 +1,9 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:iaminworld/constants.dart';
 import 'package:iaminworld/models/myfiles.dart';
+
+import 'file_info_card.dart';
 
 class MyFiles extends StatelessWidget {
   const MyFiles({
@@ -35,48 +37,17 @@ class MyFiles extends StatelessWidget {
         const SizedBox(height: defaultPadding),
         GridView.builder(
           shrinkWrap: true,
-          itemCount: demoMyFiels.length,
+          itemCount: demoMyFields.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisSpacing: defaultPadding,
-            crossAxisCount: 4
+            crossAxisCount: 4,
+            childAspectRatio: 1.4
           ),
            itemBuilder: (ctx, index)=>
-            FileInfoCard(info: demoMyFiels[index],))
+            FileInfoCard(info: demoMyFields[index]))
            
       ]
       );    
   }
 }
 
-class FileInfoCard extends StatelessWidget {
-  const FileInfoCard({
-    Key? key, 
-    required this.info,
-  }) : super(key: key);
-
-  final CloudStorageInfo info;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(defaultPadding/2),
-      decoration: const BoxDecoration(
-        color: secondaryColor,
-        borderRadius: BorderRadius.all(Radius.circular(10))
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 40,
-            width: 40,
-            decoration: BoxDecoration(
-              color: info.color.withOpacity(0.1),
-              borderRadius: const BorderRadius.all(Radius.circular(10))
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
