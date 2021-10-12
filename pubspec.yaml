@@ -38,6 +38,8 @@ dependencies:
   flutter_svg: ^0.22.0
   fl_chart: ^0.40.0
   provider: ^6.0.1
+  carousel_slider: ^4.0.0
+  flutter_staggered_animations: "^1.0.0"
 
 dev_dependencies:
   flutter_test:
