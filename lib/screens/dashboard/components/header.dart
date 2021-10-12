@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:iaminworld/constants.dart';
+import 'package:iaminworld/controlllers/menu_controller.dart';
+import 'package:iaminworld/responsive.dart';
+import 'package:provider/src/provider.dart';
 
 class Header extends StatelessWidget {
   const Header({
@@ -11,10 +14,16 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        if(!Responsive.isDesktop(context))
+        IconButton(
+          onPressed: context.read<MenuController>().controlMenu, 
+          icon: const Icon(Icons.menu)),
+        if(!Responsive.isMobile(context))
         Text('DashBoard',
         style: Theme.of(context).textTheme.headline6,
         ),
-        const Spacer(flex: 2,),
+        if(!Responsive.isMobile(context))
+         Spacer(flex: Responsive.isDesktop(context) ? 2: 1),
          const Expanded(
           child: SearchField()
           ),
@@ -40,10 +49,10 @@ class ProfileCard extends StatelessWidget {
       decoration: const BoxDecoration(color: secondaryColor,
       borderRadius: BorderRadius.all(Radius.circular(10))),
       child: Row(
-        children: const [
+        children:  const [
+          //if(!Responsive.isMobile(context))
         Padding(padding: EdgeInsets.symmetric(
           horizontal: defaultPadding/2),
-
           child: Text('Vinay'),
         ),
         Icon(Icons.keyboard_arrow_down)

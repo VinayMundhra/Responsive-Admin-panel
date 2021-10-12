@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iaminworld/constants.dart';
 import 'package:iaminworld/models/recentfiles.dart';
+import 'package:iaminworld/responsive.dart';
 import 'components/header.dart';
 import 'components/my_files.dart';
 import 'components/storage_details.dart';
@@ -42,8 +43,6 @@ class DashboardScreen extends StatelessWidget {
                                 SizedBox(
                                   width: double.infinity,
                                   child: DataTable(
-                                    horizontalMargin: 0,
-                                    columnSpacing: defaultPadding,
                                       columns: const [
                                         DataColumn(
                                           label: Text('Files Name'),
@@ -62,12 +61,17 @@ class DashboardScreen extends StatelessWidget {
                                 )
                               ],
                             ),
-                          )
+                          ),
+                          if (Responsive.isMobile(context))
+                            const SizedBox(height: defaultPadding),
+                          if (Responsive.isMobile(context))
+                            const StorageDetails(),
                         ],
                       )),
-                  const SizedBox(width: defaultPadding),
-                  const SizedBox(width: defaultPadding),
-                  const Expanded(flex: 2, child: StorageDetails())
+                  if (!Responsive.isMobile(context))
+                    const SizedBox(width: defaultPadding),
+                  if (!Responsive.isMobile(context))
+                    const Expanded(flex: 2, child: StorageDetails()),
                 ],
               ),
             ])));
